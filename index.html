@@ -3,38 +3,330 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>自分のWebサイト</title>
+  <title>ダッシュボード・データ可視化コンテスト</title>
   <style>
-    body {font-family: 'Segoe UI', sans-serif; margin: 0; background: #f5f5f5; color: #333;}
-    header {background: #0366d6; color: white; padding: 2rem 1rem; text-align: center;}
-    main {max-width: 800px; margin: 2rem auto; padding: 0 1rem;}
-    section {margin-bottom: 2rem;}
-    footer {text-align: center; padding: 1rem; font-size: 0.9rem; color: #666;}
-    a.button {display: inline-block; padding: 0.75rem 1.5rem; background: #0366d6; color: white; text-decoration: none; border-radius: 999px; margin-top: 1rem;}
+    :root {
+      --bg: #060b17;
+      --panel: rgba(255, 255, 255, 0.06);
+      --accent: #00c6ff;
+      --accent-2: #845efc;
+      --text: #f4f6fb;
+      --muted: #b1b9cf;
+      font-family: 'Noto Sans JP', 'Segoe UI', system-ui, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 4rem;
+    }
+
+    header.hero {
+      background: radial-gradient(circle at top right, rgba(0, 198, 255, 0.25), transparent 45%),
+        linear-gradient(135deg, #0f172a, #111a35 65%);
+      padding: 3rem 1.5rem 4rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      position: relative;
+      overflow: hidden;
+    }
+
+    header.hero::after {
+      content: '';
+      position: absolute;
+      inset: 1rem 2rem;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 32px;
+      pointer-events: none;
+    }
+
+    header.hero h1 {
+      margin: 0 0 1rem;
+      font-size: clamp(2.1rem, 3vw, 3rem);
+    }
+
+    header.hero p {
+      margin: 0 0 1.5rem;
+      color: var(--muted);
+      font-size: 1.1rem;
+      max-width: 640px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .button {
+      padding: 0.9rem 1.8rem;
+      border-radius: 999px;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .button.primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #fff;
+      box-shadow: 0 10px 30px rgba(0, 198, 255, 0.25);
+    }
+
+    .button.secondary {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+    }
+
+    .stats {
+      margin-top: 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1rem;
+    }
+
+    .stat-card {
+      background: var(--panel);
+      padding: 1rem 1.25rem;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .stat-card h3 {
+      margin: 0;
+      font-size: 2rem;
+      color: #fff;
+    }
+
+    .stat-card p {
+      margin: 0.25rem 0 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    section {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0));
+      margin-top: 2rem;
+      padding: 2rem;
+      border-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 24px 50px rgba(0, 0, 0, 0.2);
+    }
+
+    section h2 {
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+      font-size: 1.6rem;
+    }
+
+    section p {
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .two-column {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 18px;
+      padding: 1.5rem;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .card h3 {
+      margin-top: 0;
+      margin-bottom: 0.35rem;
+    }
+
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .timeline-item {
+      padding: 1rem 1.25rem;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: rgba(13, 26, 52, 0.65);
+    }
+
+    .timeline-item span {
+      font-size: 0.9rem;
+      color: var(--accent);
+      display: block;
+      margin-bottom: 0.35rem;
+    }
+
+    ul {
+      padding-left: 1.1rem;
+      margin: 0;
+      color: var(--muted);
+    }
+
+    ul li {
+      margin-bottom: 0.5rem;
+      line-height: 1.5;
+    }
+
+    footer {
+      margin-top: 3rem;
+      text-align: center;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    @media (max-width: 600px) {
+      header.hero {
+        padding: 2.5rem 1rem 3rem;
+      }
+
+      section {
+        padding: 1.75rem;
+      }
+    }
   </style>
 </head>
 <body>
-  <header>
-    <h1>ようこそ、私のWebサイトへ</h1>
-    <p>シンプルな自己紹介ページです。</p>
+  <header class="hero">
+    <div>
+      <p style="letter-spacing:0.2em; text-transform:uppercase; color:var(--accent); font-size:0.85rem; margin:0 0 0.8rem;">テーマ別コンペティション</p>
+      <h1>ダッシュボードで魅せる<br>データ可視化コンテスト</h1>
+      <p>「データ×ストーリーテリング」を軸に、リアルな意思決定につながるダッシュボードを競うショーケース。多彩な業界の課題から最適化の鍵を伝える視覚化を募集します。</p>
+    </div>
+    <div class="hero-actions">
+      <a class="button primary" href="#apply">今すぐ応募</a>
+      <a class="button secondary" href="#timeline">開催スケジュール</a>
+    </div>
+    <div class="stats">
+      <div class="stat-card">
+        <h3>賞金100万円</h3>
+        <p>最優秀ダッシュボード賞</p>
+      </div>
+      <div class="stat-card">
+        <h3>3週間</h3>
+        <p>作品提出期間</p>
+      </div>
+      <div class="stat-card">
+        <h3>30名</h3>
+        <p>ファイナリスト選出</p>
+      </div>
+    </div>
   </header>
+
   <main>
     <section>
-      <h2>About Me</h2>
-      <p>私はWeb開発やデザイン、コードを書くことが好きです。このサイトではポートフォリオや日々の学びを共有しています。</p>
+      <h2>コンテスト概要</h2>
+      <p>現場の意思決定者が求めるのは、複雑なデータを瞬時に把握できるダッシュボードです。今回のコンテストでは、データ可視化の表現力だけでなく、伝わるストーリー構成、訴求力のあるユーザー体験を重視。サステナブル、ヘルスケア、都市交通、ダイバーシティなど、分野を問わずあらゆるデータとプラットフォームでエントリーしてください。</p>
+      <div class="two-column">
+        <div class="card">
+          <h3>テーマ</h3>
+          <p>「実世界の意思決定を支えるダッシュボード」。利用者の行動やKPIを改善するための洞察・仮説提示を含めた提案が望ましいです。</p>
+        </div>
+        <div class="card">
+          <h3>対象</h3>
+          <p>データサイエンティスト、PdM、デザイナー、アナリスト、学生などの個人・チーム。プロトタイプ・実データどちらでも応募可能。</p>
+        </div>
+      </div>
     </section>
+
+    <section id="timeline">
+      <h2>開催スケジュール</h2>
+      <div class="timeline">
+        <article class="timeline-item">
+          <span>4/10〜4/30</span>
+          <h3>応募受付</h3>
+          <p>作品概要＋ダッシュボード画面（静止画/動画）を提出。簡単な意図説明も必須。</p>
+        </article>
+        <article class="timeline-item">
+          <span>5/1〜5/7</span>
+          <h3>一次審査</h3>
+          <p>表現力・文脈・資料整理をチェック。フィードバックを返し次へ。</p>
+        </article>
+        <article class="timeline-item">
+          <span>5/10</span>
+          <h3>ファイナル発表</h3>
+          <p>30名を招待し、オンライン/オフラインでデモ＆Q&Aを実施。</p>
+        </article>
+      </div>
+    </section>
+
     <section>
-      <h2>Latest Thoughts</h2>
-      <p>今日のテーマは「意図的なシンプルさ」。情報を詰め込みすぎず、使いやすさを最優先にしています。</p>
+      <h2>審査ポイント</h2>
+      <ul>
+        <li>課題設定と目標の明確さ → ダッシュボードが導く意思決定の形が伝わるか。</li>
+        <li>視覚的階層構造 → 色・スペース・レイアウトで重要情報を際立たせているか。</li>
+        <li>データ/ストーリーの整合性 → 数字の真偽とナラティブに一貫性があるか。</li>
+        <li>インタラクションの想像力 → 操作感や更新時の振る舞いまで考慮されているか。</li>
+      </ul>
     </section>
+
     <section>
-      <h2>Get in Touch</h2>
-      <p>ご意見やコラボのご相談はお気軽にどうぞ。</p>
-      <a class="button" href="mailto:example@example.com">メールを送る</a>
+      <h2>賞と特典</h2>
+      <div class="two-column">
+        <div class="card">
+          <h3>最優秀ダッシュボード賞</h3>
+          <p>100万円＋スポンサー企業とのプロジェクト連携支援。</p>
+        </div>
+        <div class="card">
+          <h3>観客賞・部門賞</h3>
+          <p>観覧者投票で選ぶ素早く伝わるビジュアル賞、ビジネスインパクト賞など。</p>
+        </div>
+      </div>
     </section>
+
+    <section>
+      <h2 id="apply">参加の流れ</h2>
+      <ul>
+        <li>オンラインエントリー（フォーム記入＋作品用URL提出）</li>
+        <li>審査員コメントをもとに一次選考</li>
+        <li>ファイナル審査会でのプレゼン・Q&A</li>
+        <li>受賞作品はWebギャラリーで公開・技術解説記事を制作</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>よくある質問</h2>
+      <div class="two-column">
+        <div class="card">
+          <h3>静止画だけでも応募できますか？</h3>
+          <p>はい。画面キャプチャと説明文で構造・動きの意図を補足してください。動画があればより伝わりやすくなります。</p>
+        </div>
+        <div class="card">
+          <h3>チームでの応募は可能ですか？</h3>
+          <p>可能です。チームメンバー全員の役割や得意領域を添えてください。</p>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <p>主催：ダッシュボードラボ × ビジュアライゼーション協会 © 2024</p>
+    </footer>
   </main>
-  <footer>
-    <p>&copy; 2024 自分の名前</p>
-  </footer>
 </body>
 </html>
