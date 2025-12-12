@@ -6,12 +6,12 @@
   <title>ダッシュボード・データ可視化コンテスト</title>
   <style>
     :root {
-      --bg: #060b17;
-      --panel: rgba(255, 255, 255, 0.06);
-      --accent: #00c6ff;
-      --accent-2: #845efc;
-      --text: #f4f6fb;
-      --muted: #b1b9cf;
+      --bg: #f4f6fb;
+      --panel: #ffffff;
+      --accent: #0b78ff;
+      --accent-2: #00c6ff;
+      --text: #0b1f3a;
+      --muted: #52607a;
       font-family: 'Noto Sans JP', 'Segoe UI', system-ui, sans-serif;
     }
 
@@ -33,21 +33,14 @@
     }
 
     header.hero {
-      background: radial-gradient(circle at top right, rgba(0, 198, 255, 0.25), transparent 45%),
-        linear-gradient(135deg, #0f172a, #111a35 65%);
+      background: radial-gradient(circle at top right, rgba(11, 120, 255, 0.35), transparent 45%),
+        linear-gradient(135deg, rgba(11, 120, 255, 0.95), rgba(0, 32, 93, 0.95));
+      color: #fff;
       padding: 3rem 1.5rem 4rem;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 32px;
       position: relative;
       overflow: hidden;
-    }
-
-    header.hero::after {
-      content: '';
-      position: absolute;
-      inset: 1rem 2rem;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: 32px;
-      pointer-events: none;
+      box-shadow: 0 20px 40px rgba(11, 120, 255, 0.25);
     }
 
     header.hero h1 {
@@ -57,7 +50,7 @@
 
     header.hero p {
       margin: 0 0 1.5rem;
-      color: var(--muted);
+      color: rgba(255, 255, 255, 0.8);
       font-size: 1.1rem;
       max-width: 640px;
     }
@@ -84,13 +77,13 @@
     .button.primary {
       background: linear-gradient(135deg, var(--accent), var(--accent-2));
       color: #fff;
-      box-shadow: 0 10px 30px rgba(0, 198, 255, 0.25);
+      box-shadow: 0 14px 30px rgba(11, 120, 255, 0.35);
     }
 
     .button.secondary {
-      background: transparent;
+      background: #fff;
       color: var(--text);
-      border: 1px solid rgba(255, 255, 255, 0.4);
+      border: 1px solid rgba(11, 120, 255, 0.3);
     }
 
     .button:hover {
@@ -105,10 +98,12 @@
     }
 
     .stat-card {
-      background: var(--panel);
+      background: linear-gradient(135deg, #e6f0ff, #ffffff);
       padding: 1rem 1.25rem;
       border-radius: 16px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(11, 120, 255, 0.2);
+      color: var(--text);
+      box-shadow: 0 10px 25px rgba(11, 120, 255, 0.12);
     }
 
     .stat-card h3 {
@@ -124,12 +119,12 @@
     }
 
     section {
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0));
+      background: #fff;
       margin-top: 2rem;
       padding: 2rem;
       border-radius: 24px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow: 0 24px 50px rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(11, 120, 255, 0.12);
+      box-shadow: 0 18px 40px rgba(11, 120, 255, 0.08);
     }
 
     section h2 {
@@ -151,10 +146,11 @@
     }
 
     .card {
-      background: rgba(255, 255, 255, 0.03);
+      background: var(--panel);
       border-radius: 18px;
       padding: 1.5rem;
-      border: 1px solid rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(11, 120, 255, 0.18);
+      box-shadow: 0 12px 30px rgba(11, 120, 255, 0.05);
     }
 
     .card h3 {
@@ -172,8 +168,8 @@
     .timeline-item {
       padding: 1rem 1.25rem;
       border-radius: 16px;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      background: rgba(13, 26, 52, 0.65);
+      border: 1px solid rgba(11, 120, 255, 0.2);
+      background: linear-gradient(135deg, #e6f1ff, #d9e9ff);
     }
 
     .timeline-item span {
@@ -181,6 +177,7 @@
       color: var(--accent);
       display: block;
       margin-bottom: 0.35rem;
+      font-weight: 600;
     }
 
     ul {
