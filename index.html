@@ -241,6 +241,53 @@
       margin-top: 1.5rem;
     }
 
+    .prize-grid {
+      margin-top: 1.5rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+
+    .prize-card {
+      background: #f7fbff;
+      border-radius: 22px;
+      padding: 1.5rem;
+      border: 1px solid rgba(11, 120, 255, 0.15);
+      box-shadow: 0 18px 40px rgba(11, 120, 255, 0.08);
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+
+    .prize-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(11, 120, 255, 0.4);
+    }
+
+    .highlight-card {
+      background: linear-gradient(135deg, rgba(11, 120, 255, 0.15), rgba(0, 198, 255, 0.15));
+    }
+
+    .prize-label {
+      font-size: 1rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--accent);
+      margin: 0 0 0.6rem;
+    }
+
+    .prize-amount {
+      margin: 0 0 0.65rem;
+      font-weight: 600;
+      color: #041427;
+    }
+
+    .prize-card ul {
+      margin: 0;
+      padding-left: 1rem;
+      color: #1f2d4b;
+      line-height: 1.5;
+    }
+
     .flow-diagram {
       margin-top: 1.25rem;
       display: grid;
@@ -450,15 +497,34 @@
 
     <section>
       <h2>賞と特典</h2>
-      <div class="two-column">
-        <div class="card">
-          <h3>最優秀ダッシュボード賞</h3>
-          <p>100万円＋スポンサー企業とのプロジェクト連携支援。</p>
-        </div>
-        <div class="card">
-          <h3>観客賞・部門賞</h3>
-          <p>観覧者投票で選ぶ素早く伝わるビジュアル賞、ビジネスインパクト賞など。</p>
-        </div>
+      <div class="prize-grid">
+        <article class="prize-card highlight-card">
+          <div class="prize-label">最優秀ダッシュボード賞</div>
+          <p class="prize-amount">賞金 <strong>100万円</strong></p>
+          <ul>
+            <li>スポンサー企業とのプロジェクト連携支援</li>
+            <li>ケーススタディとして各メディアで紹介</li>
+            <li>ダッシュボードベンチマークとして分析記事を公開</li>
+          </ul>
+        </article>
+        <article class="prize-card">
+          <div class="prize-label">観客賞・部門賞</div>
+          <p class="prize-amount">投票 × カテゴリ別表彰</p>
+          <ul>
+            <li>観覧者が選ぶ「伝わるビジュアル賞」</li>
+            <li>「ビジネスインパクト賞」「未来洞察賞」などの部門賞</li>
+            <li>受賞チームはレポートとインタビューで露出</li>
+          </ul>
+        </article>
+        <article class="prize-card">
+          <div class="prize-label">全参加者特典</div>
+          <p class="prize-amount">作品公開＋振り返り資料</p>
+          <ul>
+            <li>Webギャラリー掲載でポートフォリオに活用</li>
+            <li>審査員コメントつきの診断シートを共有</li>
+            <li>希望者には次回以降の招待＆優先審査枠</li>
+          </ul>
+        </article>
       </div>
     </section>
 
