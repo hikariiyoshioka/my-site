@@ -241,6 +241,65 @@
       margin-top: 1.5rem;
     }
 
+    .flow-diagram {
+      margin-top: 1.25rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+
+    .flow-step {
+      background: linear-gradient(135deg, rgba(11, 120, 255, 0.12), rgba(0, 198, 255, 0.05));
+      border: 1px solid rgba(11, 120, 255, 0.25);
+      border-radius: 18px;
+      padding: 1.25rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(11, 120, 255, 0.08);
+    }
+
+    .flow-step::after {
+      content: '';
+      position: absolute;
+      inset: 10px;
+      border-radius: 14px;
+      border: 1px dashed rgba(255, 255, 255, 0.35);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .flow-step > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .step-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: #fff;
+      color: var(--accent);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      margin-bottom: 0.85rem;
+      box-shadow: 0 12px 25px rgba(11, 120, 255, 0.2);
+    }
+
+    .flow-title {
+      margin: 0;
+      font-weight: 700;
+      color: #041427;
+    }
+
+    .flow-detail {
+      margin: 0.4rem 0 0;
+      line-height: 1.5;
+      color: #1e2b46;
+      font-size: 0.95rem;
+    }
+
     .card {
       background: var(--panel);
       border-radius: 18px;
@@ -405,12 +464,28 @@
 
     <section>
       <h2 id="apply">参加の流れ</h2>
-      <ul>
-        <li>オンラインエントリー（フォーム記入＋作品用URL提出）</li>
-        <li>審査員コメントをもとに一次選考</li>
-        <li>ファイナル審査会でのプレゼン・Q&A</li>
-        <li>受賞作品はWebギャラリーで公開・技術解説記事を制作</li>
-      </ul>
+      <div class="flow-diagram">
+        <article class="flow-step">
+          <div class="step-icon">①</div>
+          <p class="flow-title">オンラインエントリー</p>
+          <p class="flow-detail">フォーム記入＋作品URLを提出し、仮説や狙いも書き添えてください。</p>
+        </article>
+        <article class="flow-step">
+          <div class="step-icon">②</div>
+          <p class="flow-title">一次審査</p>
+          <p class="flow-detail">表現力・訴求力・資料の整理を評価。審査員コメントを返します。</p>
+        </article>
+        <article class="flow-step">
+          <div class="step-icon">③</div>
+          <p class="flow-title">ファイナル審査会</p>
+          <p class="flow-detail">オンライン/オフラインでプレゼン &amp; Q&A。質疑応答も準備。</p>
+        </article>
+        <article class="flow-step">
+          <div class="step-icon">④</div>
+          <p class="flow-title">作品公開</p>
+          <p class="flow-detail">受賞作品はWebギャラリー &amp; 技術解説記事で拡散されます。</p>
+        </article>
+      </div>
     </section>
 
     <section>
