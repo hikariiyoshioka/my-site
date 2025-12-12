@@ -125,6 +125,48 @@
       min-height: 1.4rem;
     }
 
+    .countdown {
+      margin-top: 1rem;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      padding: 0.75rem 1.25rem;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      max-width: 280px;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+    }
+
+    .countdown-label {
+      margin: 0;
+      font-size: 0.8rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .countdown-values {
+      display: flex;
+      gap: 0.4rem;
+      margin: 0.4rem 0;
+      align-items: baseline;
+      font-weight: 700;
+      font-size: 1.15rem;
+    }
+
+    .count-value {
+      font-size: 1.4rem;
+    }
+
+    .count-unit {
+      font-size: 0.95rem;
+      color: rgba(255, 255, 255, 0.75);
+    }
+
+    .countdown-note {
+      margin: 0;
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
     .stats {
       margin-top: 2rem;
       display: grid;
@@ -270,6 +312,15 @@
       <a class="button secondary" href="#timeline">開催スケジュール</a>
     </div>
     <p id="dynamic-tagline" class="tagline" data-words="リアルタイム解析,AIが支援,データから未来を予測" aria-live="polite"></p>
+    <div class="countdown" aria-live="polite">
+      <p class="countdown-label">応募締め切りまで</p>
+      <div class="countdown-values">
+        <span class="count-value" data-unit="days">0</span><span class="count-unit">日</span>
+        <span class="count-value" data-unit="hours">0</span><span class="count-unit">時間</span>
+        <span class="count-value" data-unit="minutes">0</span><span class="count-unit">分</span>
+      </div>
+      <p class="countdown-note">2025年12月24日 15:00 締切</p>
+    </div>
     <div class="stats">
       <div class="stat-card">
         <h3 data-target="100" data-suffix="万円"><span class="count">0</span><span class="suffix">万円</span></h3>
@@ -443,6 +494,33 @@
           hero.appendChild(dot);
         }
       }
+
+      const countdownEl = document.querySelector('.countdown');
+      const deadline = new Date('2025-12-24T15:00:00+09:00');
+      const updateCountdown = () => {
+        if (!countdownEl) return;
+        const now = new Date();
+        const diff = deadline - now;
+        const daysEl = countdownEl.querySelector('[data-unit="days"]');
+        const hoursEl = countdownEl.querySelector('[data-unit="hours"]');
+        const minutesEl = countdownEl.querySelector('[data-unit="minutes"]');
+        if (diff <= 0) {
+          if (daysEl) daysEl.textContent = '0';
+          if (hoursEl) hoursEl.textContent = '0';
+          if (minutesEl) minutesEl.textContent = '0';
+          return;
+        }
+        const totalMinutes = Math.floor(diff / 1000 / 60);
+        const days = Math.floor(totalMinutes / 60 / 24);
+        const hours = Math.floor((totalMinutes - days * 24 * 60) / 60);
+        const minutes = totalMinutes % 60;
+        if (daysEl) daysEl.textContent = days;
+        if (hoursEl) hoursEl.textContent = hours.toString().padStart(2, '0');
+        if (minutesEl) minutesEl.textContent = minutes.toString().padStart(2, '0');
+      };
+
+      updateCountdown();
+      setInterval(updateCountdown, 60000);
     });
   </script>
 </body>
